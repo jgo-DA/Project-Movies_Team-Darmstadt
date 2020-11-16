@@ -1,0 +1,56 @@
+//// -- LEVEL 1
+//// -- Tables and References
+
+// Creating tables
+
+Table title_akas_tsv as A {
+  titleId varchar
+  ordering int
+  title varchar
+  region varchar
+  language varchar
+  types varchar
+  attributes varchar
+  isOriginalTitle bool
+}
+
+Table title_basics_tsv as B {
+  tconst varchar
+  titleType varchar
+  primaryTitle varchar
+  originalTitle varchar
+  isAdult bool
+  startYear date
+  endYear date
+  runtimeMinutes float
+  genres varchar
+}
+
+Table title_principals_tsv as P {
+  tconst varchar
+  ordering int
+  nconst varchar
+  job varchar
+  characters varchar
+}
+
+Table title_ratings_tsv as R {
+  tconst varchar
+  averageRating float
+  numVotes int
+}
+
+Table name_basics_tsv as N {
+  nconst varchar
+  primaryName varchar
+  birthYear date
+  deathYear date
+  primaryProfession varchar
+  knownForTitles varchar
+}
+
+/// References between tables
+Ref: B.tconst < A.titleId // one to many
+Ref: B.tconst < P.tconst // one to many
+Ref: B.tconst - R.tconst // one to one
+Ref: P.nconst - N.nconst // one on one
